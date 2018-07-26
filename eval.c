@@ -1,19 +1,23 @@
 
 #include <stdio.h>
-
-static char input[2048];
+#include <stdlib.h>
+#include <editline/readline.h>
 
 int main(int argc, char** argv){
 
-  puts("Welcome to Lispy v.0.0.0.2. Press Ctrl+c to quit.");
-
+  puts("Welcome to lispy v.0.1.0. Press Ctrl+c to quit.");
+  
   while(1){
 
-    fputs("lispy> ", stdout);
+    /* readline is just a replacement for fgets, but I'm not sure how we're allowed not to declare the variable beforehand. */
+    char* input = readline("lispy> ");
 
-    fgets(input, 2048, stdin);
+    add_history(input);
 
-    printf("echo: %s", input);
+    printf("Echo: %s\n", input);
+
+    /* void free(void *ptr) deallocates the memory previously allocated to a call to calloc, malloc, or realloc. */
+    free(input);
 
   }
 
